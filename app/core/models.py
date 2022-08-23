@@ -56,7 +56,7 @@ class Course(models.Model):
     description = models.TextField(blank=True)
     time_completion_hr = models.IntegerField()
     price= models.DecimalField(max_digits = 5 , decimal_places=2)
-    picture_link = models.CharField(max_length=255, blank=True)
+    link = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.title

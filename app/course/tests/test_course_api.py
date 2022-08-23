@@ -36,7 +36,7 @@ def create_course(user, **params):
         'time_completion_hr': 22,
         'price': Decimal('250.50'),
         'description': 'sample description',
-        'picture_link' : 'http://edu.com/course/image1/',
+        'link' : 'http://edu.com/course/image1/',
         
     }
     defaults.update(params)
@@ -127,7 +127,7 @@ class PrivateCourseAPITests(TestCase):
         course = create_course(
             user=self.user,
             title='Sample course title',
-            picture_link=original_link,
+            link=original_link,
         )
 
         payload = {'title': 'New course title'}
@@ -137,7 +137,7 @@ class PrivateCourseAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         course.refresh_from_db()
         self.assertEqual(course.title, payload['title'])
-        self.assertEqual(course.picture_link, original_link)
+        self.assertEqual(course.link, original_link)
         self.assertEqual(course.user, self.user)
 
     def test_full_update(self):
@@ -145,13 +145,13 @@ class PrivateCourseAPITests(TestCase):
         course = create_course(
             user=self.user,
             title='Sample course title',
-            picture_link='https://exmaple.com/course.pdf',
+            link='https://exmaple.com/course.pdf',
             description='Sample course description.',
         )
 
         payload = {
             'title': 'New course title',
-            'picture_link': 'https://example.com/new-course.pdf',
+            'link': 'https://example.com/new-course.pdf',
             'description': 'New course description',
             'time_completion_hr': 10,
             'price': Decimal('2.50'),
